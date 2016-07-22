@@ -1,0 +1,11 @@
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.csprojResolveAssemblyReference.cache
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.Form1.resources
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.Properties.Resources.resources
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.csproj.GenerateResource.Cache
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\bin\Debug\updataAssitant.exe.config
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\bin\Debug\updataAssitant.exe
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\bin\Debug\updataAssitant.pdb
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.exe
+D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.pdb
