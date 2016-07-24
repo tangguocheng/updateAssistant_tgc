@@ -80,6 +80,8 @@
             this.tbEnd3 = new System.Windows.Forms.TextBox();
             this.tbEnd2 = new System.Windows.Forms.TextBox();
             this.tbStart3 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cmbProtocol = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -417,14 +419,16 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.cmbProtocol);
+            this.groupBox5.Controls.Add(this.label15);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.tbShakeHand);
             this.groupBox5.Controls.Add(this.cmbInitBaud);
             this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox5.Location = new System.Drawing.Point(3, 3);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(496, 44);
+            this.groupBox5.Size = new System.Drawing.Size(202, 284);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "通讯握手";
@@ -432,7 +436,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(148, 23);
+            this.label14.Location = new System.Drawing.Point(0, 49);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(65, 12);
             this.label14.TabIndex = 7;
@@ -440,9 +444,9 @@
             // 
             // tbShakeHand
             // 
-            this.tbShakeHand.Location = new System.Drawing.Point(219, 17);
+            this.tbShakeHand.Location = new System.Drawing.Point(71, 40);
             this.tbShakeHand.Name = "tbShakeHand";
-            this.tbShakeHand.Size = new System.Drawing.Size(274, 21);
+            this.tbShakeHand.Size = new System.Drawing.Size(125, 21);
             this.tbShakeHand.TabIndex = 6;
             this.tbShakeHand.Text = "AT#U\\r\\n";
             // 
@@ -451,13 +455,13 @@
             this.cmbInitBaud.FormattingEnabled = true;
             this.cmbInitBaud.Location = new System.Drawing.Point(71, 17);
             this.cmbInitBaud.Name = "cmbInitBaud";
-            this.cmbInitBaud.Size = new System.Drawing.Size(61, 20);
+            this.cmbInitBaud.Size = new System.Drawing.Size(125, 20);
             this.cmbInitBaud.TabIndex = 0;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(0, 23);
+            this.label10.Location = new System.Drawing.Point(0, 25);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(65, 12);
             this.label10.TabIndex = 1;
@@ -478,9 +482,10 @@
             this.groupBox4.Controls.Add(this.tbEnd3);
             this.groupBox4.Controls.Add(this.tbEnd2);
             this.groupBox4.Controls.Add(this.tbStart3);
-            this.groupBox4.Location = new System.Drawing.Point(3, 48);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox4.Location = new System.Drawing.Point(288, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(211, 242);
+            this.groupBox4.Size = new System.Drawing.Size(211, 284);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "用户代码段";
@@ -614,6 +619,28 @@
             this.tbStart3.Text = "0x";
             this.tbStart3.TextChanged += new System.EventHandler(this.tbAddr_textChange);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(0, 75);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 12);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "握手协议";
+            // 
+            // cmbProtocol
+            // 
+            this.cmbProtocol.DisplayMember = "0";
+            this.cmbProtocol.FormattingEnabled = true;
+            this.cmbProtocol.Items.AddRange(new object[] {
+            "自定义",
+            "IEC62056-21 C",
+            "DTL645-07"});
+            this.cmbProtocol.Location = new System.Drawing.Point(71, 69);
+            this.cmbProtocol.Name = "cmbProtocol";
+            this.cmbProtocol.Size = new System.Drawing.Size(125, 20);
+            this.cmbProtocol.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -701,6 +728,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tbShakeHand;
+        private System.Windows.Forms.ComboBox cmbProtocol;
+        private System.Windows.Forms.Label label15;
     }
 }
 

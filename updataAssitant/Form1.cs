@@ -15,6 +15,7 @@ namespace updataAssitant
         {
             InitializeComponent();
             myTaskManager.ApplicationId = "Taskbar";
+            
             foreach (string name in SerialPort.GetPortNames())
             {
                 cmbPortName.Items.Add(name);
@@ -56,7 +57,17 @@ namespace updataAssitant
                 myTaskManager.SetProgressState(TaskbarProgressBarState.Paused, this.Handle);
                 myTaskManager.SetProgressValue(29, 100, this.Handle);
             }
+
+            cmbProtocol.SelectedIndex = 0;
         }
+        
+        private enum step : uint
+        {
+            shakeHand=0,
+            updateState,
+            stop
+        }
+        step currentStep = step.shakeHand;    // 用于指示通讯状态的全局变量
         private Int64 currentLines = 0;
 
         /// <summary>
@@ -69,6 +80,46 @@ namespace updataAssitant
         private void MyTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             myTimer.Stop();
+            switch (currentStep)
+            {
+                case step.shakeHand:
+                    shackHand();
+                    break;
+                case step.updateState:
+                    sendUpdate();
+                    break;
+                case step.stop:
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        private enum protoclo
+        {
+            userDefine=0,
+            IEC21_C,
+            DTL645_07
+        }
+        private protoclo currentProtocol = protoclo.userDefine;
+        private void shackHand()
+        {
+            switch (currentProtocol)
+            {
+                case protoclo.userDefine:
+                    break;
+                case protoclo.IEC21_C:
+                    break;
+                case protoclo.DTL645_07:
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        private void sendUpdate()
+        {
             byte[] sendDate = new byte[FrameLen];
             byte chkTemp = 0;
 
@@ -101,38 +152,37 @@ namespace updataAssitant
             }
 
             string[] update_split = updateFile[currentLines].Trim().Split(' ');
-            for (int i = 1,j=4; i < update_split.Length; i++)
+            for (int i = 1, j = 4; i < update_split.Length; i++)
             {
-                sendDate[j] = (byte)(Convert.ToByte(update_split[i], 16)); 
+                sendDate[j] = (byte)(Convert.ToByte(update_split[i], 16));
                 chkTemp += sendDate[j];
-                j++;            
+                j++;
             }
-            
+
             sendDate[0] = 0x23;
             sendDate[1] = (byte)(Convert.ToUInt32(update_split[0], 16) / 512);           // 扇区号
-            sendDate[2] = (byte)((Convert.ToUInt32(update_split[0], 16) % 512 ) / 16);   // 行号
+            sendDate[2] = (byte)((Convert.ToUInt32(update_split[0], 16) % 512) / 16);   // 行号
             sendDate[3] = 0x00;
-            sendDate[FrameLen-2] = (byte)(chkTemp + sendDate[1] + sendDate[2] + sendDate[3]);
-            sendDate[FrameLen-1] = 0x23;
+            sendDate[FrameLen - 2] = (byte)(chkTemp + sendDate[1] + sendDate[2] + sendDate[3]);
+            sendDate[FrameLen - 1] = 0x23;
 
-            myPort.Write(sendDate,0, FrameLen);
+            myPort.Write(sendDate, 0, FrameLen);
             sendFrameCount++;
             currentLines++;
 
-            Action act = () => tbInformation.AppendText(System.DateTime.Now.ToString()+":  " + "第 "+Convert.ToString(sendFrameCount) +" 帧-->发送完成" + "\r\n");
+            Action act = () => tbInformation.AppendText(System.DateTime.Now.ToString() + ":  " + "第 " + Convert.ToString(sendFrameCount) + " 帧-->发送完成" + "\r\n");
             tbInformation.Invoke(act);
-            
+
             act = () => tbFrameNow.Text = Convert.ToString(sendFrameCount);
             tbFrameNow.Invoke(act);
 
-            act = () => tbFrameLast.Text = Convert.ToString(frameSum-sendFrameCount);
+            act = () => tbFrameLast.Text = Convert.ToString(frameSum - sendFrameCount);
             tbFrameNow.Invoke(act);
 
             act = () => pgbUpdate.Value = (int)(sendFrameCount * 100 / frameSum);
             pgbUpdate.Invoke(act);
 
             myTaskManager.SetProgressValue((int)(sendFrameCount * 100 / frameSum), 100, this.Handle);
-            
         }
 
         /// <summary>
@@ -201,6 +251,7 @@ namespace updataAssitant
 
                     if (sendSwitch && fileIsOpened)
                     {
+                        currentStep = step.updateState;
                         myTimer.Interval = 800;     // 300ms后发送数据
                         myTimer.Start();
                     }
@@ -229,7 +280,6 @@ namespace updataAssitant
         {
             if (myPort.IsOpen == false)
             {
-                
                 myPort.PortName = cmbPortName.Text;
                 myPort.BaudRate = Convert.ToInt32(cmbPortBAUD.Text);
                 switch (Convert.ToInt16(cmbPortStopBits.Text)*10)
@@ -465,7 +515,7 @@ namespace updataAssitant
             System.IO.File.WriteAllLines(Application.StartupPath + "\\HexFile.txt", formatHex);
             return true;
         }
-
+        private int _21Step = 0;    
         /// <summary>
         /// 开始升级
         /// </summary>
@@ -473,7 +523,7 @@ namespace updataAssitant
         /// <param name="e"></param>
         private void btnUpdateStart_Click(object sender, EventArgs e)
         {
-
+            currentStep = step.shakeHand;
             if ((myPort.IsOpen == false) || fileIsOpened == false)
             {
                 if (myPort.IsOpen == false) tbInformation.AppendText(System.DateTime.Now.ToString()+":  " + "端口未打开\r\n");
@@ -488,22 +538,43 @@ namespace updataAssitant
                     myPort.Open();
 
                 }
-                String start = @tbShakeHand.Text.ToUpper().Trim();//"AT#U\r";
-                while (start.Contains(@"\R\N"))
+                currentProtocol = (protoclo)cmbProtocol.SelectedIndex;
+                switch (currentProtocol)
                 {
-                    start = start.Replace(@"\R\N"," ");
-                    start = start.Trim();
-                }
-                start += "\r";
-                myPort.DiscardInBuffer();
-                myPort.WriteLine(start);
-                currentLines = 0;
-                sendFrameCount = 0;
-                tbInformation.AppendText(System.DateTime.Now.ToString() + ":  " + "开始升级\r\n");
+                    case protoclo.userDefine:
+                        {
+                            String start = @tbShakeHand.Text.ToUpper().Trim();//"AT#U\r";
+                            while (start.Contains(@"\R\N"))
+                            {
+                                start = start.Replace(@"\R\N", " ");
+                                start = start.Trim();
+                            }
+                            start += "\r";
+                            myPort.DiscardInBuffer();
+                            myPort.WriteLine(start);
+                            currentLines = 0;
+                            sendFrameCount = 0;
+                            tbInformation.AppendText(System.DateTime.Now.ToString() + ":  " + "开始升级\r\n");
 
-                myPort.Close();
-                myPort.BaudRate = Convert.ToInt32(cmbPortBAUD.Text);
-                myPort.Open();
+                            myPort.Close();
+                            myPort.BaudRate = Convert.ToInt32(cmbPortBAUD.Text);
+                            myPort.Open();
+                        }
+                        break;
+                    case protoclo.IEC21_C:
+                        {
+                            string startStr = "/?!\r\n";
+                            myPort.WriteLine(startStr);
+                            _21Step = 0;
+                        }
+                        break;
+                    case protoclo.DTL645_07:
+                        break;
+                    default:
+                        break;
+
+                }
+               
                 
             }
         }
@@ -538,6 +609,11 @@ namespace updataAssitant
             tbInformation.AppendText(System.DateTime.Now.ToString()+":  "  + "停止升级" + "\r\n");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
             bool enable = ((CheckBox)sender).Checked;
@@ -561,8 +637,11 @@ namespace updataAssitant
             
         }
 
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddrEnter_Click(object sender, EventArgs e)
         {
             bool wrongRangeFlag = false;
@@ -610,8 +689,13 @@ namespace updataAssitant
             }
         }
         private UInt32 startAddr1 = 0x0600, startAddr2 = 0, startAddr3 = 0;
-
         private UInt32 endAddr1 = 0x0D7F0, endAddr2 = 0, endAddr3 = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbAddr_textChange(object sender, EventArgs e)
         {
             try
