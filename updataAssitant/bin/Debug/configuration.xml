@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <serialInitBaud>300</serialInitBaud>
+  <serialComBaud>19200</serialComBaud>
+  <serialShakeBaud>9600</serialShakeBaud>
+  <serialProtocol>IEC62056-21</serialProtocol>
+  <userFrame>AT#U\R\N</userFrame>
+  <codeStartAddr1>0x0600</codeStartAddr1>
+  <codeStartAddr2>0x0</codeStartAddr2>
+  <codeStartAddr3>0x0</codeStartAddr3>
+  <codeEndAddr1>0xD7F0</codeEndAddr1>
+  <codeEndAddr2>0x0</codeEndAddr2>
+  <codeEndAddr3>0x0</codeEndAddr3>
+</Settings>

@@ -10,13 +10,15 @@ D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\bin\Debug\Microsoft.Wi
 D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.exe
 D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Debug\updataAssitant.pdb
 D:\updataAssitant\updataAssitant\bin\Debug\updataAssitant.exe.config
-D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.exe
-D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.pdb
 D:\updataAssitant\updataAssitant\bin\Debug\updataAssitant.exe
 D:\updataAssitant\updataAssitant\bin\Debug\updataAssitant.pdb
 D:\updataAssitant\updataAssitant\bin\Debug\Microsoft.WindowsAPICodePack.dll
 D:\updataAssitant\updataAssitant\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.Form1.resources
+D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.helpAbout.resources
 D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.Properties.Resources.resources
+D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.setup.resources
 D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.csproj.GenerateResource.Cache
+D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.exe
+D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.pdb
 D:\updataAssitant\updataAssitant\obj\Debug\updataAssitant.csprojResolveAssemblyReference.cache
