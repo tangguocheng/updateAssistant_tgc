@@ -8,3 +8,13 @@ D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Release\updataAssi
 D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Release\updataAssitant.csproj.GenerateResource.Cache
 D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Release\updataAssitant.exe
 D:\mergeHex\updataAssistant\updataAssitant\updataAssitant\obj\Release\updataAssitant.pdb
+D:\updataAssitant\updataAssitant\bin\Release\updataAssitant.exe.config
+D:\updataAssitant\updataAssitant\bin\Release\updataAssitant.exe
+D:\updataAssitant\updataAssitant\bin\Release\updataAssitant.pdb
+D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.Form1.resources
+D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.helpAbout.resources
+D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.Properties.Resources.resources
+D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.setup.resources
+D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.csproj.GenerateResource.Cache
+D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.exe
+D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.pdb

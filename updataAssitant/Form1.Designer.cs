@@ -53,7 +53,6 @@
             this.tbpSerialAssistant = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.rtbReceive = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.cmbPortBAUD = new System.Windows.Forms.ComboBox();
             this.cmbPortDateBits = new System.Windows.Forms.ComboBox();
             this.cmbPortName = new System.Windows.Forms.ComboBox();
@@ -324,7 +323,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.rtbReceive, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -343,13 +341,6 @@
             this.rtbReceive.Size = new System.Drawing.Size(449, 142);
             this.rtbReceive.TabIndex = 15;
             this.rtbReceive.Text = "";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(3, 151);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 16;
             // 
             // cmbPortBAUD
             // 
@@ -518,7 +509,7 @@
             this.MenuItemOpen.Name = "MenuItemOpen";
             this.MenuItemOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.MenuItemOpen.ShowShortcutKeys = false;
-            this.MenuItemOpen.Size = new System.Drawing.Size(152, 22);
+            this.MenuItemOpen.Size = new System.Drawing.Size(110, 22);
             this.MenuItemOpen.Text = "打开(&O)";
             this.MenuItemOpen.Click += new System.EventHandler(this.MenuItemOpen_Click);
             // 
@@ -528,7 +519,7 @@
             this.MenuItemExit.Name = "MenuItemExit";
             this.MenuItemExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.MenuItemExit.ShowShortcutKeys = false;
-            this.MenuItemExit.Size = new System.Drawing.Size(152, 22);
+            this.MenuItemExit.Size = new System.Drawing.Size(110, 22);
             this.MenuItemExit.Text = "退出(&X)";
             this.MenuItemExit.Click += new System.EventHandler(this.MenuItemExit_Click);
             // 
@@ -583,14 +574,14 @@
             this.MenuItemHelp.Name = "MenuItemHelp";
             this.MenuItemHelp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.MenuItemHelp.ShowShortcutKeys = false;
-            this.MenuItemHelp.Size = new System.Drawing.Size(152, 22);
+            this.MenuItemHelp.Size = new System.Drawing.Size(117, 22);
             this.MenuItemHelp.Text = "帮助(&H)";
             this.MenuItemHelp.Click += new System.EventHandler(this.MenuItemHelp_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(114, 6);
             // 
             // MenuItemAbout
             // 
@@ -598,7 +589,7 @@
             this.MenuItemAbout.Name = "MenuItemAbout";
             this.MenuItemAbout.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.MenuItemAbout.ShowShortcutKeys = false;
-            this.MenuItemAbout.Size = new System.Drawing.Size(152, 22);
+            this.MenuItemAbout.Size = new System.Drawing.Size(117, 22);
             this.MenuItemAbout.Text = "关于(&A)...";
             this.MenuItemAbout.Click += new System.EventHandler(this.MenuItemAbout_Click);
             // 
@@ -665,7 +656,6 @@
             this.groupBox2.PerformLayout();
             this.tbpSerialAssistant.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
@@ -724,7 +714,6 @@
         private System.Windows.Forms.TextBox tbInformation;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.RichTextBox rtbReceive;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnUpdateStop;
         private System.Windows.Forms.Button btnExitBTL;
         private System.Windows.Forms.Button btnEnterBTL;

@@ -57,8 +57,6 @@ namespace updataAssitant
             {
                 System.IO.File.Delete(Application.StartupPath + "\\configuration.xml");
             }
-            XDocument myXDoc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), new XElement("Settings", "setting"));
-            myXDoc.Save(Application.StartupPath + "\\test2.xml");
             XElement root = new XElement("Settings",
                 new XElement("serialInitBaud", cmbInitBaud.Text),
                 new XElement("serialComBaud", cmbComBaud.Text),

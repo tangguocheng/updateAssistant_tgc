@@ -83,6 +83,7 @@ namespace updataAssitant
             myTimer.Stop();
             myTimer.Elapsed += MyTimer_Elapsed;
 
+
             loadConfig();
         }
 
@@ -122,8 +123,6 @@ namespace updataAssitant
         {
             if (!System.IO.File.Exists(Application.StartupPath + "\\configuration.xml"))
             {
-                XDocument myXDoc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), new XElement("Settings", "setting"));
-                myXDoc.Save(Application.StartupPath + "\\test2.xml");
                 XElement root = new XElement("Settings",
                     new XElement("serialInitBaud", "300"),
                     new XElement("serialComBaud", "19200"),
@@ -381,7 +380,7 @@ namespace updataAssitant
                                 if (myBuffer.Contains(0x0A) && (myBuffer[myBuffer.LastIndexOf(0x0A) - 1] == 0x0D))
                                 {
                                     myBuffer.Clear();
-                                    myTimer.Interval = 1500;
+                                    myTimer.Interval = 2000;
                                     myTimer.Start();
                                 }
                                 break;
@@ -399,7 +398,6 @@ namespace updataAssitant
                             default:
                                 break;
                         }
-
                     }
                     break;
                 case step.updateState:
@@ -445,10 +443,10 @@ namespace updataAssitant
                                         information = "升级完成" + "\n";
                                         endTime = System.DateTime.Now;
                                         TimeSpan ts = endTime.Subtract(startTime).Duration();
-                                        information += ("\r\n" + "耗时:" + ts.Hours.ToString() + "小时"
-                                                                         + ts.Minutes.ToString() + "分钟"
-                                                                         + ts.Seconds.ToString() + "秒" + "\r\n");
-                                        information += "跳转至用户代码";
+                                        information += ("\r\n\t\t" + "耗时:" + ts.Hours.ToString() + "小时"
+                                                                          + ts.Minutes.ToString() + "分钟"
+                                                                          + ts.Seconds.ToString() + "秒" + "\r\n");
+                                        information += "\t\t跳转至用户代码...";
                                         bootLoaderRunning = false;
                                         updating = false;
                                         {
@@ -881,6 +879,7 @@ namespace updataAssitant
             }
             currentLines = 0;
             sendFrameCount = 0;
+
         }
 
         /// <summary>
@@ -890,7 +889,22 @@ namespace updataAssitant
         /// <param name="e"></param>
         private void btnExitBTL_Click(object sender, EventArgs e)
         {
-            closeMyPort();
+            if (myPort.PortName != cmbPortName.Text)
+            {
+                if (myPort.IsOpen)
+                {
+                    myPort.Close();
+                }
+                myPort.PortName = cmbPortName.Text;
+            }
+            else
+            {
+                if (myPort.IsOpen)
+                {
+                    closeMyPort();
+                }
+
+            }
             myPort.BaudRate = comBaud;
             openMyPort();
             myTimer.Stop();
@@ -902,17 +916,13 @@ namespace updataAssitant
             cmbPortName.Enabled = true;
             cmbPortPrity.Enabled = true;
             cmbPortStopBits.Enabled = true;
+            currentStep = step.updateState;
             pictureBox_Port.Image = Properties.Resources.connect_close;
         }
 
         private void MenuItemCheckBTL_Click_1(object sender, EventArgs e)
         {
-            if (bootLoaderRunning)
-            {
-                tbInformation.AppendText(System.DateTime.Now.ToString() + ":  " + "bootloader已经运行……" + "\r\n");
-                return;
-            }
-
+            bootLoaderRunning = false;
             tbInformation.AppendText(System.DateTime.Now.ToString() + ":  " + "测试bootloader是否已经运行……" + "\r\n");
             if (myPort.IsOpen)
             {
@@ -974,8 +984,8 @@ namespace updataAssitant
             }
             else
             {
-                tbInformation.AppendText(System.DateTime.Now.ToString() + ":  " + "不符合升级条件:" + "\r\n"
-                                        + "bootLoaderRunning:" + bootLoaderRunning.ToString() + "\r\n"
+                tbInformation.AppendText(System.DateTime.Now.ToString() + ":  " + "不符合升级条件:" + "\r\n\t\t"
+                                        + "bootLoaderRunning:" + bootLoaderRunning.ToString() + "\r\n\t\t"
                                         + "fileIsOpened:" + fileIsOpened.ToString() + "\r\n");
             }
         }
