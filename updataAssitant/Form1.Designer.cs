@@ -51,8 +51,15 @@
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.tbInformation = new System.Windows.Forms.TextBox();
             this.tbpSerialAssistant = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.rtbReceive = new System.Windows.Forms.RichTextBox();
+            this.radioButtonE = new System.Windows.Forms.RadioButton();
+            this.radioButtonW = new System.Windows.Forms.RadioButton();
+            this.radioButtonR = new System.Windows.Forms.RadioButton();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.rtbInfo = new System.Windows.Forms.RichTextBox();
+            this.tbID = new System.Windows.Forms.TextBox();
+            this.tbDate = new System.Windows.Forms.TextBox();
+            this.btnSentDate = new System.Windows.Forms.Button();
             this.cmbPortBAUD = new System.Windows.Forms.ComboBox();
             this.cmbPortDateBits = new System.Windows.Forms.ComboBox();
             this.cmbPortName = new System.Windows.Forms.ComboBox();
@@ -88,7 +95,6 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tbpSerialAssistant.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Port)).BeginInit();
@@ -308,7 +314,15 @@
             // 
             // tbpSerialAssistant
             // 
-            this.tbpSerialAssistant.Controls.Add(this.tableLayoutPanel1);
+            this.tbpSerialAssistant.Controls.Add(this.radioButtonE);
+            this.tbpSerialAssistant.Controls.Add(this.radioButtonW);
+            this.tbpSerialAssistant.Controls.Add(this.radioButtonR);
+            this.tbpSerialAssistant.Controls.Add(this.label11);
+            this.tbpSerialAssistant.Controls.Add(this.label10);
+            this.tbpSerialAssistant.Controls.Add(this.rtbInfo);
+            this.tbpSerialAssistant.Controls.Add(this.tbID);
+            this.tbpSerialAssistant.Controls.Add(this.tbDate);
+            this.tbpSerialAssistant.Controls.Add(this.btnSentDate);
             this.tbpSerialAssistant.Location = new System.Drawing.Point(4, 22);
             this.tbpSerialAssistant.Name = "tbpSerialAssistant";
             this.tbpSerialAssistant.Padding = new System.Windows.Forms.Padding(3);
@@ -317,33 +331,97 @@
             this.tbpSerialAssistant.Text = "串口助手";
             this.tbpSerialAssistant.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
+            // radioButtonE
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.rtbReceive, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(455, 297);
-            this.tableLayoutPanel1.TabIndex = 16;
+            this.radioButtonE.AutoSize = true;
+            this.radioButtonE.Location = new System.Drawing.Point(46, 136);
+            this.radioButtonE.Name = "radioButtonE";
+            this.radioButtonE.Size = new System.Drawing.Size(47, 16);
+            this.radioButtonE.TabIndex = 8;
+            this.radioButtonE.Text = "执行";
+            this.radioButtonE.UseVisualStyleBackColor = true;
+            this.radioButtonE.CheckedChanged += new System.EventHandler(this.radioButtonChecked);
             // 
-            // rtbReceive
+            // radioButtonW
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.rtbReceive, 2);
-            this.rtbReceive.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbReceive.Location = new System.Drawing.Point(3, 3);
-            this.rtbReceive.Name = "rtbReceive";
-            this.rtbReceive.Size = new System.Drawing.Size(449, 142);
-            this.rtbReceive.TabIndex = 15;
-            this.rtbReceive.Text = "";
+            this.radioButtonW.AutoSize = true;
+            this.radioButtonW.Location = new System.Drawing.Point(46, 108);
+            this.radioButtonW.Name = "radioButtonW";
+            this.radioButtonW.Size = new System.Drawing.Size(35, 16);
+            this.radioButtonW.TabIndex = 7;
+            this.radioButtonW.Text = "写";
+            this.radioButtonW.UseVisualStyleBackColor = true;
+            this.radioButtonW.CheckedChanged += new System.EventHandler(this.radioButtonChecked);
+            // 
+            // radioButtonR
+            // 
+            this.radioButtonR.AutoSize = true;
+            this.radioButtonR.Checked = true;
+            this.radioButtonR.Location = new System.Drawing.Point(46, 84);
+            this.radioButtonR.Name = "radioButtonR";
+            this.radioButtonR.Size = new System.Drawing.Size(35, 16);
+            this.radioButtonR.TabIndex = 6;
+            this.radioButtonR.TabStop = true;
+            this.radioButtonR.Text = "读";
+            this.radioButtonR.UseVisualStyleBackColor = true;
+            this.radioButtonR.CheckedChanged += new System.EventHandler(this.radioButtonChecked);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(11, 65);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(29, 12);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "DATE";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(23, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 12);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "ID";
+            // 
+            // rtbInfo
+            // 
+            this.rtbInfo.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.rtbInfo.Location = new System.Drawing.Point(152, 3);
+            this.rtbInfo.Name = "rtbInfo";
+            this.rtbInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtbInfo.Size = new System.Drawing.Size(306, 296);
+            this.rtbInfo.TabIndex = 3;
+            this.rtbInfo.Text = "";
+            this.rtbInfo.TextChanged += new System.EventHandler(this.rtbInfo_TextChanged);
+            // 
+            // tbID
+            // 
+            this.tbID.Location = new System.Drawing.Point(46, 13);
+            this.tbID.Name = "tbID";
+            this.tbID.Size = new System.Drawing.Size(100, 21);
+            this.tbID.TabIndex = 2;
+            // 
+            // tbDate
+            // 
+            this.tbDate.Location = new System.Drawing.Point(46, 56);
+            this.tbDate.Name = "tbDate";
+            this.tbDate.Size = new System.Drawing.Size(100, 21);
+            this.tbDate.TabIndex = 1;
+            // 
+            // btnSentDate
+            // 
+            this.btnSentDate.Location = new System.Drawing.Point(36, 169);
+            this.btnSentDate.Name = "btnSentDate";
+            this.btnSentDate.Size = new System.Drawing.Size(75, 23);
+            this.btnSentDate.TabIndex = 0;
+            this.btnSentDate.Text = "biubiu";
+            this.btnSentDate.UseVisualStyleBackColor = true;
+            this.btnSentDate.Click += new System.EventHandler(this.btnSentDate_Click);
             // 
             // cmbPortBAUD
             // 
+            this.cmbPortBAUD.Enabled = false;
             this.cmbPortBAUD.FormattingEnabled = true;
             this.cmbPortBAUD.Location = new System.Drawing.Point(6, 53);
             this.cmbPortBAUD.Name = "cmbPortBAUD";
@@ -352,6 +430,7 @@
             // 
             // cmbPortDateBits
             // 
+            this.cmbPortDateBits.Enabled = false;
             this.cmbPortDateBits.FormattingEnabled = true;
             this.cmbPortDateBits.Location = new System.Drawing.Point(6, 91);
             this.cmbPortDateBits.Name = "cmbPortDateBits";
@@ -368,6 +447,7 @@
             // 
             // cmbPortStopBits
             // 
+            this.cmbPortStopBits.Enabled = false;
             this.cmbPortStopBits.FormattingEnabled = true;
             this.cmbPortStopBits.Location = new System.Drawing.Point(6, 167);
             this.cmbPortStopBits.Name = "cmbPortStopBits";
@@ -385,6 +465,7 @@
             // 
             // cmbPortPrity
             // 
+            this.cmbPortPrity.Enabled = false;
             this.cmbPortPrity.FormattingEnabled = true;
             this.cmbPortPrity.Location = new System.Drawing.Point(6, 129);
             this.cmbPortPrity.Name = "cmbPortPrity";
@@ -643,7 +724,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Opacity = 0.85D;
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "升级助手";
@@ -655,7 +735,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tbpSerialAssistant.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tbpSerialAssistant.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
@@ -712,8 +792,6 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemSetup;
         private System.Windows.Forms.ToolStripMenuItem MenuItemConfig;
         private System.Windows.Forms.TextBox tbInformation;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.RichTextBox rtbReceive;
         private System.Windows.Forms.Button btnUpdateStop;
         private System.Windows.Forms.Button btnExitBTL;
         private System.Windows.Forms.Button btnEnterBTL;
@@ -725,6 +803,15 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabelTime;
         private System.Windows.Forms.Timer systemTimer;
         private System.IO.Ports.SerialPort myPort;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.RichTextBox rtbInfo;
+        private System.Windows.Forms.TextBox tbID;
+        private System.Windows.Forms.TextBox tbDate;
+        private System.Windows.Forms.Button btnSentDate;
+        private System.Windows.Forms.RadioButton radioButtonE;
+        private System.Windows.Forms.RadioButton radioButtonW;
+        private System.Windows.Forms.RadioButton radioButtonR;
     }
 }
 

@@ -18,3 +18,14 @@ D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.setup.resources
 D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.csproj.GenerateResource.Cache
 D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.exe
 D:\updataAssitant\updataAssitant\obj\Release\updataAssitant.pdb
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\bin\Release\updataAssitant.exe.config
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.exe
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.pdb
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\bin\Release\updataAssitant.exe
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\bin\Release\updataAssitant.pdb
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.csprojResolveAssemblyReference.cache
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.Form1.resources
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.helpAbout.resources
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.Properties.Resources.resources
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.setup.resources
+C:\Users\tgcdz\OneDrive\updataAssitant\updataAssitant\obj\Release\updataAssitant.csproj.GenerateResource.Cache

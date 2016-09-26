@@ -5,6 +5,8 @@ using System.IO.Ports;
 using System.Timers;
 using System.Xml.Linq;
 using System.Threading;
+using System.Linq;
+
 namespace updataAssitant
 {
     public partial class Form1 : Form
@@ -82,9 +84,14 @@ namespace updataAssitant
             pgbUpdate.Value = 0;
             myTimer.Stop();
             myTimer.Elapsed += MyTimer_Elapsed;
-
-
+            tabControl1.SelectedIndex = 1;
+            rtbInfo.MouseDoubleClick += rtbInfo_Doublick;
             loadConfig();
+        }
+
+        private void rtbInfo_Doublick(object sender, MouseEventArgs e)
+        {
+            rtbInfo.Clear();
         }
 
         /// <summary>
@@ -92,7 +99,16 @@ namespace updataAssitant
         /// </summary>
         private void openMyPort()
         {
-            statusLabelCom.Text = "当前串口:" + myPort.PortName + " " + "波特率:" + myPort.BaudRate.ToString() + " 握手协议:" + currentProtocol;
+            if (tabControl1.SelectedIndex==1)
+            {
+                statusLabelCom.Text = "当前串口:" + myPort.PortName + " " + "波特率:" + myPort.BaudRate.ToString();
+            }
+            else
+            {
+                statusLabelCom.Text = "当前串口:" + myPort.PortName + " " + "波特率:" + myPort.BaudRate.ToString() + " 握手协议:" + currentProtocol;
+            }
+            
+            pictureBox_Port.Image = Properties.Resources.connect_open;
             myPort.Open();
         }
 
@@ -102,6 +118,7 @@ namespace updataAssitant
         private void closeMyPort()
         {
             currentLines = 0;
+            pictureBox_Port.Image = Properties.Resources.connect_close;
             myBuffer.Clear();
             myPort.Close();
         }
@@ -165,6 +182,38 @@ namespace updataAssitant
         private void MyTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             myTimer.Stop();
+            string STR = null;
+            if (myBuffer.Contains(0x06) || myBuffer.Contains(0x15))
+            {
+                if (myBuffer.Contains(0x06))
+                {
+                    STR = "ACK\n";
+                }
+                if (myBuffer.Contains(0x15))
+                {
+                    STR = "NAK\n";
+                }
+            }
+            else if ((myBuffer.Contains(0x02)) && (myBuffer.Contains(0x28)) && (myBuffer.Contains(0x29)))
+            {
+                int start = myBuffer.IndexOf(0x28);
+                int end = myBuffer.IndexOf(0x29);
+                for (int j = start + 1; j < end; j++)
+                {
+                    STR += ((char)myBuffer[j]).ToString();
+                }
+                STR += "\n";
+            }
+            else
+            {
+                STR = "不支持的ID定义\n";
+            }
+
+            Action act2 = () => rtbInfo.AppendText(System.DateTime.Now.ToString() + ": " + STR);
+            rtbInfo.Invoke(act2);
+
+            return;
+
             if (checkBTL)
             {
                 checkBTL = false;
@@ -365,10 +414,19 @@ namespace updataAssitant
         /// </summary>
         private void MyPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            myTimer.Stop();
             int num = myPort.BytesToRead;
             byte[] byteTemp = new byte[num];
             myPort.Read(byteTemp, 0, num);
+            for (int i = 0; i < byteTemp.Length; i++)
+            {
+                byteTemp[i] = (byte)(byteTemp[i] & 0x7F);
+            }
             myBuffer.AddRange(byteTemp);
+            myTimer.Interval = 300;
+            myTimer.Start();
+           
+            return;
 
             switch (currentStep)
             {
@@ -839,7 +897,7 @@ namespace updataAssitant
                 cmbPortName.Enabled = false;
                 cmbPortPrity.Enabled = false;
                 cmbPortStopBits.Enabled = false;
-                pictureBox_Port.Image = Properties.Resources.connect_open;
+                
             }
             catch (System.IO.IOException)
             {
@@ -918,6 +976,108 @@ namespace updataAssitant
             cmbPortStopBits.Enabled = true;
             currentStep = step.updateState;
             pictureBox_Port.Image = Properties.Resources.connect_close;
+        }
+
+        private byte instructSet = 0x52;
+        private void btnSentDate_Click(object sender, EventArgs e)
+        {
+            byte[] frame = new byte[200];
+            int i = 0;
+            frame[0] = 0x01;
+            frame[1] = instructSet;
+            frame[2] = 0x32;
+            frame[3] = 0x02;
+            
+            foreach (char item in tbID.Text)
+            {
+                frame[4+i]= (byte)item;
+                i++;
+            }
+            frame[8] = 0x28;
+            i = 0;
+            if (!string.IsNullOrEmpty(tbDate.Text))
+            {
+                foreach (char item in tbDate.Text)
+                {
+                    frame[9 + i] = (byte)item;
+                    i++;
+                }
+            }
+            int tmpXb = i;
+            frame[9 + tmpXb] = 0x29;
+            frame[10 + tmpXb] = 0x03;
+            byte tmp = 0;
+            for ( i = 1; i <= 10 + tmpXb; i++)
+            {
+                tmp ^= frame[i];
+            }
+            frame[11 + tmpXb] = tmp;
+            
+            byte count1Bits = 0;
+            for (i = 0; i <= 11 + tmpXb; i++)
+            {
+                count1Bits = 0;
+                byte temp = frame[i];
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((temp & 0x01) == 0x01)
+                    {
+                        count1Bits++;
+                    }
+                    temp = (byte)(temp >> 1);
+                }
+
+                if (count1Bits % 2 == 1)
+                {
+                    frame[i] = (byte)(frame[i] | 0x80);
+                }
+            }
+
+            // 打开串口   
+
+            if ((myPort.PortName == cmbPortName.Text) && (myPort.IsOpen))
+            {
+                closeMyPort();
+            }
+            myBuffer.Clear();
+            myPort.PortName = cmbPortName.Text;
+            myPort.DataBits = 8;
+            myPort.StopBits = System.IO.Ports.StopBits.One;
+            myPort.Parity = System.IO.Ports.Parity.None;
+            myPort.BaudRate = 9600;
+            openMyPort();
+            myPort.Write(frame, 0, tmpXb + 12);
+            rtbInfo.AppendText(System.DateTime.Now.ToString() + "  ID: " + tbID.Text + "  数据: " + tbDate.Text + '\n');
+
+        }
+
+        private void radioButtonChecked(object sender, EventArgs e)
+        {
+            if (radioButtonE.Checked)
+            {
+                radioButtonW.Checked = false;
+                radioButtonR.Checked = false;
+                instructSet = 0x45;
+            }
+            if (radioButtonW.Checked)
+            {
+                radioButtonE.Checked = false;
+                radioButtonR.Checked = false;
+                instructSet = 0x57;
+            }
+            if (radioButtonR.Checked)
+            {
+                radioButtonW.Checked = false;
+                radioButtonE.Checked = false;
+                instructSet = 0x52;
+            }
+        }
+
+        private void rtbInfo_TextChanged(object sender, EventArgs e)
+        {
+            rtbInfo.SelectionStart = rtbInfo.TextLength;
+            //滚动到当前光标处 
+            rtbInfo.ScrollToCaret();
         }
 
         private void MenuItemCheckBTL_Click_1(object sender, EventArgs e)
